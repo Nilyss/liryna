@@ -1,0 +1,19 @@
+@use "../../utils/styles/mixins" as mixins;
+@use "../../utils/styles/variables" as vars;
+
+main {
+  @include mixins.main;
+  gap: 2em;
+}
+
+.changeFormButtonWrapper {
+  width: 280px;
+  text-align: center;
+}
+
+.changeFormButtonWrapper button {
+  border: none;
+  background: none;
+  padding: unset;
+  color: #ff7e5f;
+}

@@ -1,0 +1,114 @@
+/* reset.scss */
+@use "../../utils/styles/mixins" as mixins;
+@use "../../utils/styles/variables" as vars;
+
+// import Ubuntu font from google cdn
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+  color: vars.$fontColorPrimary;
+}
+
+/* Remove default padding and margin */
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set core body defaults */
+body {
+  margin: auto;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  cursor: default;
+}
+
+#root {
+  @media (max-width: vars.$tabletWidth) {
+    display: flex;
+    flex-flow: column;
+    min-height: 100dvh;
+    & > footer {
+      margin-top: auto;
+    }
+  }
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a {
+  text-decoration: none;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* font */
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+button,
+select,
+a {
+  cursor: pointer;
+}

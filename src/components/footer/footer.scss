@@ -1,0 +1,17 @@
+footer {
+  min-height: 10dvh;
+  background: #36395a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .textWrapper {
+    width: 280px;
+    text-align: center;
+    p {
+      color: #ffffff;
+      font-size: 14px;
+    }
+  }
+}

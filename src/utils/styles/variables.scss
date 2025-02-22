@@ -1,0 +1,22 @@
+@use 'sass:color';
+
+$mobileWidth: 768px;
+$tabletWidth: 1024px;
+$laptopWidth: 1280px;
+$desktopWidth: 1440px;
+
+$fontColorPrimary: #36395a;
+$errorColor: #fb5858;
+
+$colorSecondary: #36395a;
+
+$greyBackground: #dcdcdc;
+
+$brandColor: #818f26;
+$darkerBrandColor: #6a782b;
+
+$brandColorGradient: linear-gradient(
+  to left,
+  color.adjust($brandColor, $lightness: 30%),
+  color.adjust($darkerBrandColor, $lightness: 20%)
+);
