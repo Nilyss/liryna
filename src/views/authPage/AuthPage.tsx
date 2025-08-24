@@ -14,6 +14,8 @@ export default function AuthPage(): ReactElement {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
 
 
 
@@ -42,9 +44,13 @@ export default function AuthPage(): ReactElement {
             email: email,
             password: password,
             passwordConfirmation: passwordConfirmation,
+            firstName: firstName,
+            lastName: lastName,
             setEmail: setEmail,
             setPassword: setPassword,
             setPasswordConfirmation: setPasswordConfirmation,
+            setFirstName: setFirstName,
+            setLastName: setLastName,
           }}
         />
         <div className={'changeFormButtonWrapper'}>

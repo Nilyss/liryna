@@ -1,6 +1,13 @@
 @use "../../utils/styles/mixins" as mixins;
 @use "../../utils/styles/variables" as vars;
 
+// Mobile-first approach
+.homeContainer {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
 main {
   @include mixins.main;
   padding: unset;
@@ -9,75 +16,101 @@ main {
 main .mainWrapper {
   width: 100%;
   display: flex;
-  height: 90dvh;
+  flex-direction: column;
 
   section {
-    width: 50%;
+    width: 100%;
+    height: 100dvh;
     position: relative;
-
-    @media (max-width: vars.$laptopWidth) {
-      width: 100%;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
 
     &:hover {
       h2 {
         color: #ff7e5f;
-        transition: all 300ms ease-in;
       }
 
       figure {
-
         &:after {
-          transition: all 300ms ease-in;
-          background: rgba(0, 0, 0, 0);
+          background: rgba(0, 0, 0, 0.3);
         }
       }
     }
 
     figure {
-      height: 90dvh;
-      position: relative;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
 
       &:after {
         content: "";
         position: absolute;
-        bottom: 0;
+        top: 0;
         left: 0;
         width: 100%;
-        height: 90dvh;
-        background: rgba(0, 0, 0, 0.69);
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
         z-index: 1;
-        transition: all 300ms ease-out;
+        transition: background 200ms ease;
       }
 
       img {
         object-fit: cover;
-        height: 90dvh;
+        height: 100%;
         width: 100%;
       }
     }
 
     h2 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       color: #ffffff;
-      font-size: 3.5em;
+      font-size: 2rem;
       text-align: center;
       z-index: 2;
-      transition: all 300ms ease-out;
+      padding: 1rem;
+      font-weight: 300;
+      
+      // Tablet
+      @media (min-width: vars.$mobileWidth) {
+        font-size: 2.5rem;
+        padding: 2rem;
+      }
+      
+      // Desktop
+      @media (min-width: vars.$tabletWidth) {
+        font-size: 3rem;
+      }
     }
   }
 
-  @media (max-width: vars.$laptopWidth) {
-    flex-flow: column;
-    height: unset;
+  // Desktop layout
+  @media (min-width: vars.$tabletWidth) {
+    flex-direction: row;
+    height: 100vh;
+    
+    section {
+      width: 50%;
+      height: 100vh;
+    }
+    
+    // Reorder for desktop: Web Dev first (left), Utils second (right)
+    .webDevSection {
+      order: 1;
+    }
+    
+    .utilsSection {
+      order: 2;
+    }
   }
 }
 
-main .mainWrapper .leftSection {
-  @media (max-width: vars.$laptopWidth) {
-    order: 1;
-  }
+// Footer appears after scroll
+footer {
+  scroll-snap-align: start;
+  height: auto;
+  min-height: 10vh;
 }

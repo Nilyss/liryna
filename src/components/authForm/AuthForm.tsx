@@ -14,9 +14,13 @@ interface IAuthFormProps {
     email: string;
     password: string;
     passwordConfirmation: string;
+    firstName: string;
+    lastName: string;
     setEmail: (value: string) => void;
     setPassword: (value: string) => void;
     setPasswordConfirmation: (value: string) => void;
+    setFirstName: (value: string) => void;
+    setLastName: (value: string) => void;
   };
 }
 
@@ -28,9 +32,13 @@ export default function AuthForm({
     email,
     password,
     passwordConfirmation,
+    firstName,
+    lastName,
     setEmail,
     setPassword,
     setPasswordConfirmation,
+    setFirstName,
+    setLastName,
   } = props;
 
   return (
@@ -47,9 +55,13 @@ export default function AuthForm({
           email={email}
           password={password}
           passwordConfirmation={passwordConfirmation}
+          firstName={firstName}
+          lastName={lastName}
           setEmail={setEmail}
           setPassword={setPassword}
           setPasswordConfirmation={setPasswordConfirmation}
+          setFirstName={setFirstName}
+          setLastName={setLastName}
         />
       )}
     </>

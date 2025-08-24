@@ -2,12 +2,18 @@
 import "./header.scss";
 
 // hooks | libraries
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { UserContext } from "../../context/user/UserContext.tsx";
 
 export default function Header(): ReactElement {
   const location = useLocation();
   const isAuthRoute: boolean = location.pathname === "/auth";
+  const { user, logout } = useContext(UserContext);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <header>
@@ -20,6 +26,14 @@ export default function Header(): ReactElement {
           <span className={"tool"}>tool!</span>
         </h1>
       </Link>
+      {user && !isAuthRoute && (
+        <div className="userInfo">
+          <span>Bonjour {user.firstName}</span>
+          <button onClick={handleLogout} className="logoutButton">
+            Déconnexion
+          </button>
+        </div>
+      )}
     </header>
   );
 }

@@ -1,12 +1,21 @@
 @use "../../utils/styles/variables" as vars;
 
+// Mobile-first header
 header {
-  min-height: 10dvh;
-  height: 10dvh;
+  height: 10vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #8e8c91;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  
+  @media (min-width: vars.$mobileWidth) {
+    padding: 0 2rem;
+  }
 
   a {
     display: flex;
@@ -14,21 +23,33 @@ header {
     justify-content: flex-start;
 
     h1 {
-      font-size: 20px !important;
+      font-size: 16px !important;
       font-weight: 400;
       text-transform: uppercase;
       position: relative;
 
+      @media (min-width: vars.$mobileWidth) {
+        font-size: 20px !important;
+      }
+
       .what {
-        font-size: 28px;
+        font-size: 22px;
         color: #36395a;
-        font-weight: 700;
+        font-weight: 600;
+        
+        @media (min-width: vars.$mobileWidth) {
+          font-size: 28px;
+        }
       }
 
       .tool {
-        font-size: 28px;
+        font-size: 22px;
         color: #ff7e5f;
-        font-weight: 700;
+        font-weight: 600;
+        
+        @media (min-width: vars.$mobileWidth) {
+          font-size: 28px;
+        }
       }
 
       &::after {
@@ -47,6 +68,40 @@ header {
 
       &:hover::after {
         transform: scaleX(1);
+      }
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    @media (min-width: vars.$mobileWidth) {
+      gap: 1rem;
+    }
+    
+    span {
+      font-size: 12px;
+      color: #36395a;
+      
+      @media (min-width: vars.$mobileWidth) {
+        font-size: 14px;
+      }
+    }
+    
+    .logoutButton {
+      background: none;
+      color: #36395a;
+      border: none;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: underline;
+      
+      &:hover {
+        color: #ff7e5f;
       }
     }
   }

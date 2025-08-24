@@ -5,6 +5,7 @@ import {
   ReactElement,
   useContext,
   useEffect,
+  useState,
 } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
@@ -30,14 +31,22 @@ export default function SignInForm({
   setPassword,
 }: Readonly<ISignInFormProps>): ReactElement {
   const navigate: NavigateFunction = useNavigate();
-  const { getUser, user } = useContext(UserContext);
+  const { login, user, isLoading } = useContext(UserContext);
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (): Promise<void> => {
+    setError("");
     const credentials: IUserCredentials = {
       email,
       password,
     };
-    await getUser(credentials);
+    
+    try {
+      await login(credentials);
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Identifiants invalides. Veuillez réessayer.");
+    }
   };
 
   useEffect((): void => {
@@ -80,8 +89,26 @@ export default function SignInForm({
           }
         />
       </div>
+      {error && (
+        <div className={"errorMessage"} style={{
+          color: "#dc3545",
+          background: "#f8d7da",
+          border: "1px solid #f5c6cb",
+          borderRadius: "4px",
+          padding: "8px 12px",
+          margin: "10px 0",
+          fontSize: "14px"
+        }}>
+          {error}
+        </div>
+      )}
       <div className={"buttonContainer"}>
-        <Button style="orange" text="Connexion" type="submit" />
+        <Button 
+          style="orange" 
+          text={isLoading ? "Connexion..." : "Connexion"} 
+          type="submit" 
+          disabled={isLoading}
+        />
       </div>
     </form>
   );

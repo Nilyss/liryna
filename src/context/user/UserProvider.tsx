@@ -1,14 +1,15 @@
 // hooks | libraries
-import { useState, useMemo, ReactElement } from "react";
+import { useState, useMemo, ReactElement, useEffect } from "react";
 
 // context
 import { UserContext } from "./UserContext.tsx";
 
 // custom types
-import { IUser, IUserCredentials } from "../../utils/types/user.types.ts";
+import { IUser, IUserCredentials, IUserRegistration } from "../../utils/types/user.types.ts";
 
 // services
-import { getUserService } from "../../API/services/user.service.ts";
+import { getCurrentUserService } from "../../API/services/user.service.ts";
+import { loginService, registerService, logoutService, getStoredToken } from "../../API/services/auth.service.ts";
 
 export const UserProvider = ({
   children,
@@ -16,30 +17,88 @@ export const UserProvider = ({
   children: ReactElement;
 }): ReactElement => {
   const [user, setUser] = useState<IUser | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const getUser = async (
-    userCredentials: IUserCredentials,
-    // userID?: IUser["id"],
-  ): Promise<void> => {
-    // add a timer to avoid flashing du to loader if datas fetch is instant
-    await new Promise((resolve) => setTimeout(resolve, 500));
+  const isAuthenticated = useMemo(() => !!user && !!getStoredToken(), [user]);
 
+  // Vérifier l'authentification au chargement
+  useEffect(() => {
+    const initAuth = async () => {
+      const token = getStoredToken();
+      if (token) {
+        try {
+          await getCurrentUser();
+        } catch (error) {
+          console.error("Token invalid, logging out:", error);
+          logout();
+        }
+      }
+      setIsLoading(false);
+    };
+    
+    initAuth();
+  }, []);
+
+  const login = async (credentials: IUserCredentials): Promise<void> => {
+    setIsLoading(true);
     try {
-      const res: IUser = await getUserService(userCredentials);
-      setUser(res);
+      const response = await loginService(credentials);
+      if (response.user) {
+        setUser(response.user);
+      }
     } catch (error) {
-      console.error("Error while getting user :", error);
+      console.error("Error while logging in:", error);
       setUser(null);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const register = async (userData: IUserRegistration): Promise<void> => {
+    setIsLoading(true);
+    try {
+      const response = await registerService(userData);
+      if (response.user) {
+        setUser(response.user);
+      }
+    } catch (error) {
+      console.error("Error while registering:", error);
+      setUser(null);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const logout = (): void => {
+    logoutService();
+    setUser(null);
+  };
+
+  const getCurrentUser = async (): Promise<void> => {
+    try {
+      const currentUser = await getCurrentUserService();
+      setUser(currentUser);
+    } catch (error) {
+      console.error("Error while getting current user:", error);
+      setUser(null);
+      throw error;
     }
   };
 
   const contextValue = useMemo(
     () => ({
       user,
+      isAuthenticated,
+      isLoading,
       setUser,
-      getUser,
+      login,
+      register,
+      logout,
+      getCurrentUser,
     }),
-    [user],
+    [user, isAuthenticated, isLoading],
   );
 
   return (

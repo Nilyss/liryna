@@ -13,23 +13,14 @@ import { Link } from "react-router-dom";
 // component
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import ChatBot from "../../components/chatBot/ChatBot";
 
 function Home(): ReactElement {
   return (
-    <>
+    <div className="homeContainer">
       <Header />
       <main>
         <div className={"mainWrapper"}>
-          <section className={"leftSection"}>
-            <Link to={"/web_dev"}>
-              <figure>
-                <img src={devBackground} alt={"Éditeur de code"} />
-              </figure>
-              <h2>Développement Web</h2>
-            </Link>
-          </section>
-          <section className={"rightSection"}>
+          <section className={"utilsSection"}>
             <Link to={"/utils"}>
               <figure>
                 <img src={utilsBackground} alt={"Bureau de travail"} />
@@ -37,11 +28,18 @@ function Home(): ReactElement {
               <h2>Utilitaires</h2>
             </Link>
           </section>
+          <section className={"webDevSection"}>
+            <Link to={"/web_dev"}>
+              <figure>
+                <img src={devBackground} alt={"Éditeur de code"} />
+              </figure>
+              <h2>Développement Web</h2>
+            </Link>
+          </section>
         </div>
-        <ChatBot />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

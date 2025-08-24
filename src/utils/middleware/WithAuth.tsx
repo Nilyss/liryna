@@ -7,14 +7,18 @@ export default function WithAuth<P extends object>(
 ): (props: P) => ReactElement | null {
   return function AuthenticatedComponent(props: P): ReactElement | null {
     const navigate: NavigateFunction = useNavigate();
-    const { user } = useContext(UserContext);
+    const { user, isAuthenticated, isLoading } = useContext(UserContext);
 
     useEffect((): void => {
-      if (!user) {
+      if (!isLoading && !isAuthenticated) {
         navigate("/auth");
       }
-    }, [user, navigate]);
+    }, [isAuthenticated, isLoading, navigate]);
 
-    return user ? <WrappedComponent {...props} /> : null;
+    if (isLoading) {
+      return <div>Chargement...</div>;
+    }
+
+    return isAuthenticated && user ? <WrappedComponent {...props} /> : null;
   };
 }
