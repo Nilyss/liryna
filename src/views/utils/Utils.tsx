@@ -2,7 +2,7 @@
 import "./utils.scss";
 
 // hooks | libraries
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 
 // components
 import WithAuth from "../../utils/middleware/WithAuth.tsx";
@@ -14,8 +14,14 @@ function Utils(): ReactElement {
   return (
     <>
       <Header />
-      <main>
-        <NavBar />
+      <NavBar />
+      <main className="utils-main">
+        <section className="utils-content">
+          <h1 className="utils-title">Outils utilitaires</h1>
+          <div className="utils-welcome">
+            <p>Bienvenue dans la section utilitaires. Utilisez la navigation pour accéder aux différents outils disponibles.</p>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

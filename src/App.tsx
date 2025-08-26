@@ -18,6 +18,7 @@ import HomeWithAuth from "./views/home/Home.tsx";
 import ComponentPreview from "./views/componentPreview/ComponentPreview.tsx";
 import WebDevelopmentWithAuth from "./views/webDevelopment/WebDevelopment.tsx";
 import UtilsWithAuth from "./views/utils/Utils.tsx";
+import CourriersWithAuth from "./views/courriers/Courriers.tsx";
 
 function App(): ReactElement {
   return (
@@ -28,6 +29,7 @@ function App(): ReactElement {
         <Route path={"home"} element={<HomeWithAuth />}></Route>
         <Route path={"web_dev"} element={<WebDevelopmentWithAuth />}></Route>
         <Route path={"utils"} element={<UtilsWithAuth />}></Route>
+        <Route path={"utils/courriers"} element={<CourriersWithAuth />}></Route>
 
         <Route path={"component_preview"} element={<ComponentPreview />}
         ></Route>

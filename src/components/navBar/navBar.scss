@@ -1,14 +1,281 @@
+@import "../../utils/styles/variables.scss";
+
 #navBar {
   width: 100%;
   height: 10dvh;
-  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  
+  // Effet de glassmorphisme avec gradient subtil
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+    pointer-events: none;
+  }
+  
+  // Effet de brillance subtil
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transition: left 0.8s ease-in-out;
+    pointer-events: none;
+  }
+  
+  &:hover::after {
+    left: 100%;
+  }
 }
 
 #navBar ul {
-  width: 25%;
+  width: 35%;
+  min-width: 450px;
   display: flex;
   justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  
+  
+  li {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    
+    // Dropdown container
+    &.dropdown-container {
+      position: relative;
+    }
+    
+    a {
+      display: block;
+      padding: 12px 20px;
+      text-decoration: none;
+      color: rgba(54, 57, 90, 0.8);
+      font-weight: 500;
+      font-size: 14px;
+      border-radius: 16px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      background: transparent;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+      
+      // Effet hover subtil
+      &:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: rgba(54, 57, 90, 0.95);
+        transform: translateY(-1px);
+      }
+      
+      // État actif avec effet bulle
+      &.active {
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(54, 57, 90, 1);
+        font-weight: 600;
+        transform: translateY(-1px);
+        position: relative;
+        z-index: 2;
+        
+        // Bulle adaptative derrière le bouton actif
+        &::before {
+          content: '';
+          position: absolute;
+          top: -4px;
+          left: -8px;
+          right: -8px;
+          bottom: -4px;
+          border-radius: 20px;
+          backdrop-filter: blur(15px);
+          -webkit-backdrop-filter: blur(15px);
+          z-index: -1;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          pointer-events: none;
+        }
+      }
+      
+      // Couleurs spécifiques selon la section
+      // Accueil
+      &.active[href="/home"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(54, 57, 90, 0.15),
+          rgba(42, 45, 66, 0.2)
+        );
+        border: 2px solid rgba(54, 57, 90, 0.3);
+        box-shadow: 
+          0 8px 32px rgba(54, 57, 90, 0.1),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+          0 0 20px rgba(54, 57, 90, 0.15);
+      }
+      
+      // Web développement
+      &.active[href="/web_dev"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(54, 57, 90, 0.15),
+          rgba(255, 126, 95, 0.2)
+        );
+        border: 2px solid rgba(255, 126, 95, 0.3);
+        box-shadow: 
+          0 8px 32px rgba(255, 126, 95, 0.1),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+          0 0 20px rgba(255, 126, 95, 0.2);
+      }
+      
+      // Utilitaires
+      &.active[href="/utils"]::before {
+        background: linear-gradient(
+          135deg,
+          rgba(78, 205, 196, 0.15),
+          rgba(68, 160, 141, 0.2)
+        );
+        border: 2px solid rgba(78, 205, 196, 0.3);
+        box-shadow: 
+          0 8px 32px rgba(78, 205, 196, 0.1),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+          0 0 20px rgba(78, 205, 196, 0.2);
+      }
+      
+      // Micro-interaction
+      &:active {
+        transform: translateY(0px) scale(0.97);
+      }
+    }
+  }
+  
+  // Dropdown menu
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 180px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    z-index: 10;
+    
+    // Effet de glassmorphisme pour le dropdown
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.03) 50%,
+        rgba(0, 0, 0, 0.01) 100%
+      );
+      border-radius: 16px;
+      pointer-events: none;
+    }
+    
+    .dropdown-item {
+      display: block;
+      padding: 10px 16px;
+      text-decoration: none;
+      color: rgba(54, 57, 90, 0.85);
+      font-weight: 500;
+      font-size: 14px;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 2;
+      
+      &:hover {
+        background: rgba(78, 205, 196, 0.1);
+        color: rgba(54, 57, 90, 1);
+        transform: translateX(2px);
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// Support responsive
+@media (max-width: 768px) {
+  #navBar ul {
+    width: 95%;
+    min-width: auto;
+    
+    li a {
+      padding: 10px 12px;
+      font-size: 13px;
+      
+      // Ajustement de la bulle pour mobile
+      &.active::before {
+        top: -3px;
+        left: -6px;
+        right: -6px;
+        bottom: -3px;
+        border-radius: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #navBar ul {
+    width: 98%;
+    
+    li a {
+      padding: 8px 8px;
+      font-size: 12px;
+      
+      // Bulle plus petite sur très petits écrans
+      &.active::before {
+        top: -2px;
+        left: -4px;
+        right: -4px;
+        bottom: -2px;
+        border-radius: 14px;
+      }
+    }
+  }
 }

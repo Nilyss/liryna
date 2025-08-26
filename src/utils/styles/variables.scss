@@ -1,22 +1,45 @@
 @use 'sass:color';
 
+// Breakpoints
 $mobileWidth: 768px;
 $tabletWidth: 1024px;
 $laptopWidth: 1280px;
 $desktopWidth: 1440px;
 
+// Couleurs principales
 $fontColorPrimary: #36395a;
 $errorColor: #fb5858;
-
 $colorSecondary: #36395a;
-
 $greyBackground: #dcdcdc;
 
-$brandColor: #818f26;
-$darkerBrandColor: #6a782b;
+// Couleurs des sections basées sur le header
+// Section Développement (from header .what + .tool)
+$devPrimary: #36395a;        // Bleu foncé du "what"
+$devSecondary: #ff7e5f;      // Orange/corail du "tool" 
+$devDarker: #2a2d42;         // Version plus foncée du bleu
+$devLighter: #feb47b;        // Version plus claire de l'orange
 
-$brandColorGradient: linear-gradient(
-  to left,
-  color.adjust($brandColor, $lightness: 30%),
-  color.adjust($darkerBrandColor, $lightness: 20%)
+// Section Utils (vert d'eau)
+$utilsPrimary: #4ecdc4;      // Vert d'eau principal
+$utilsSecondary: #44a08d;    // Vert d'eau plus foncé
+$utilsDarker: #3a8f89;       // Version foncée
+$utilsLighter: #7fdbda;      // Version claire
+
+// Gradients
+$devGradient: linear-gradient(
+  135deg,
+  $devPrimary 0%,
+  $devSecondary 100%
 );
+
+$utilsGradient: linear-gradient(
+  135deg,
+  $utilsPrimary 0%,
+  $utilsSecondary 100%
+);
+
+// Legacy brand colors (pour compatibilité)
+$brandColor: $utilsPrimary;
+$darkerBrandColor: $utilsSecondary;
+
+$brandColorGradient: $utilsGradient;
