@@ -6,40 +6,67 @@ $tabletWidth: 1024px;
 $laptopWidth: 1280px;
 $desktopWidth: 1440px;
 
-// Couleurs principales
-$fontColorPrimary: #36395a;
-$errorColor: #fb5858;
-$colorSecondary: #36395a;
-$greyBackground: #dcdcdc;
+// Couleurs de base
+$fontColorPrimary: #2c3e50;
+$fontColorSecondary: #5a6c7d;
+$errorColor: #e74c3c;
+$successColor: #27ae60;
+$warningColor: #f39c12;
+$greyBackground: #f8f9fa;
+$whiteBackground: #ffffff;
+$borderColor: rgba(0, 0, 0, 0.1);
 
-// Couleurs des sections basées sur le header
-// Section Développement (from header .what + .tool)
-$devPrimary: #36395a;        // Bleu foncé du "what"
-$devSecondary: #ff7e5f;      // Orange/corail du "tool" 
-$devDarker: #2a2d42;         // Version plus foncée du bleu
-$devLighter: #feb47b;        // Version plus claire de l'orange
+// ===================
+// SECTION WEB DEV - Tons oranges/corail
+// ===================
+$webdevPrimary: #ff6b47;        // Orange corail principal
+$webdevSecondary: #ff8a65;      // Orange plus clair
+$webdevDark: #e55a3c;           // Orange foncé
+$webdevLight: #ffab91;          // Orange très clair
+$webdevAccent: #ff9800;         // Accent orange vif
 
-// Section Utils (vert d'eau)
-$utilsPrimary: #4ecdc4;      // Vert d'eau principal
-$utilsSecondary: #44a08d;    // Vert d'eau plus foncé
-$utilsDarker: #3a8f89;       // Version foncée
-$utilsLighter: #7fdbda;      // Version claire
+$webdevGradient: linear-gradient(135deg, $webdevPrimary 0%, $webdevSecondary 100%);
+$webdevGradientReverse: linear-gradient(135deg, $webdevSecondary 0%, $webdevPrimary 100%);
 
-// Gradients
-$devGradient: linear-gradient(
-  135deg,
-  $devPrimary 0%,
-  $devSecondary 100%
-);
+// ===================
+// SECTION UTILS - Tons vert d'eau
+// ===================
+$utilsPrimary: #26d0ce;         // Vert d'eau principal
+$utilsSecondary: #4dd0e1;       // Cyan clair
+$utilsDark: #1ba69b;            // Vert d'eau foncé
+$utilsLight: #80deea;           // Cyan très clair
+$utilsAccent: #00bcd4;          // Accent cyan
 
-$utilsGradient: linear-gradient(
-  135deg,
-  $utilsPrimary 0%,
-  $utilsSecondary 100%
-);
+$utilsGradient: linear-gradient(135deg, $utilsPrimary 0%, $utilsSecondary 100%);
+$utilsGradientReverse: linear-gradient(135deg, $utilsSecondary 0%, $utilsPrimary 100%);
 
-// Legacy brand colors (pour compatibilité)
+// ===================
+// COULEURS NEUTRES POUR NAVIGATION
+// ===================
+$navBackground: rgba(255, 255, 255, 0.95);
+$navBackgroundMobile: $whiteBackground;
+$navTextColor: $fontColorPrimary;
+$navTextColorActive: $whiteBackground;
+$navBorderColor: $borderColor;
+
+// ===================
+// SHADOW & BLUR EFFECTS
+// ===================
+$shadowLight: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadowMedium: 0 4px 16px rgba(0, 0, 0, 0.15);
+$shadowHeavy: 0 8px 32px rgba(0, 0, 0, 0.2);
+$blurLight: blur(10px);
+$blurMedium: blur(20px);
+
+// ===================
+// ANIMATIONS & TRANSITIONS
+// ===================
+$transitionFast: 0.2s ease;
+$transitionMedium: 0.3s ease;
+$transitionSlow: 0.5s ease;
+$transitionSmooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Legacy compatibility (to be phased out)
 $brandColor: $utilsPrimary;
-$darkerBrandColor: $utilsSecondary;
-
+$darkerBrandColor: $utilsDark;
 $brandColorGradient: $utilsGradient;

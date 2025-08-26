@@ -5,7 +5,7 @@ import "./authPage.scss";
 import { ReactElement, useState } from "react";
 
 // components
-import Header from "../../components/header/Header";
+import NavBar from "../../components/navBar/NavBar";
 import AuthForm from "../../components/authForm/AuthForm.tsx";
 import Footer from "../../components/footer/Footer";
 
@@ -36,7 +36,7 @@ export default function AuthPage(): ReactElement {
 
   return (
     <>
-      <Header />
+      <NavBar />
       <main>
         <AuthForm
           props={{

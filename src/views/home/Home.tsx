@@ -11,13 +11,13 @@ import WithAuth from "../../utils/middleware/WithAuth";
 import { Link } from "react-router-dom";
 
 // component
-import Header from "../../components/header/Header";
+import NavBar from "../../components/navBar/NavBar";
 import Footer from "../../components/footer/Footer";
 
 function Home(): ReactElement {
   return (
     <div className="homeContainer">
-      <Header />
+      <NavBar />
       <main>
         <div className={"mainWrapper"}>
           <section className={"utilsSection"}>

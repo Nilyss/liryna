@@ -1,8 +1,9 @@
 // styles
 import "./utils/styles/global.scss";
+import 'aos/dist/aos.css';
 
 // types
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 
 // hooks | library
 import {
@@ -10,7 +11,9 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation
 } from "react-router-dom";
+import AOS from 'aos';
 
 // views
 import AuthPage from "./views/authPage/AuthPage";
@@ -19,10 +22,48 @@ import ComponentPreview from "./views/componentPreview/ComponentPreview.tsx";
 import WebDevelopmentWithAuth from "./views/webDevelopment/WebDevelopment.tsx";
 import UtilsWithAuth from "./views/utils/Utils.tsx";
 import CourriersWithAuth from "./views/courriers/Courriers.tsx";
+import NouveauCourrierWithAuth from "./views/courriers/nouveauCourrier/NouveauCourrier.tsx";
+
+// Component to manage body classes based on current route
+function BodyClassManager(): ReactElement | null {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Remove all existing nav-related classes
+    document.body.classList.remove('has-subnav', 'section-webdev', 'section-utils', 'section-home');
+
+    // Determine current section and add appropriate classes
+    if (location.pathname === '/' || location.pathname === '/home') {
+      document.body.classList.add('section-home');
+    } else if (location.pathname.includes('/web_dev')) {
+      document.body.classList.add('section-webdev');
+    } else if (location.pathname.includes('/utils')) {
+      document.body.classList.add('section-utils');
+      
+      // Add subnav class if we're in a sub-application
+      if (location.pathname !== '/utils') {
+        document.body.classList.add('has-subnav');
+      }
+    }
+  }, [location.pathname]);
+
+  return null;
+}
 
 function App(): ReactElement {
+  useEffect(() => {
+    // Initialize AOS
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100
+    });
+  }, []);
+
   return (
     <Router>
+      <BodyClassManager />
       <Routes>
         <Route path="/" element={<Navigate to="/auth" />}></Route>
         <Route path={"auth"} element={<AuthPage />}></Route>
@@ -30,6 +71,7 @@ function App(): ReactElement {
         <Route path={"web_dev"} element={<WebDevelopmentWithAuth />}></Route>
         <Route path={"utils"} element={<UtilsWithAuth />}></Route>
         <Route path={"utils/courriers"} element={<CourriersWithAuth />}></Route>
+        <Route path={"utils/courriers/nouveau"} element={<NouveauCourrierWithAuth />}></Route>
 
         <Route path={"component_preview"} element={<ComponentPreview />}
         ></Route>

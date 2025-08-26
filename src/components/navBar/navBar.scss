@@ -1,281 +1,622 @@
 @import "../../utils/styles/variables.scss";
 
-#navBar {
-  width: 100%;
-  height: 10dvh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+// ===================
+// NAVBAR BASE STYLES
+// ===================
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: $navBackground;
+  backdrop-filter: $blurMedium;
+  -webkit-backdrop-filter: $blurMedium;
+  border-bottom: 1px solid $navBorderColor;
+  transition: all $transitionSmooth;
   
-  // Effet de glassmorphisme avec gradient subtil
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(255, 255, 255, 0.05) 50%,
-      rgba(0, 0, 0, 0.02) 100%
-    );
-    pointer-events: none;
+  // Theme colors
+  &.webdev {
+    background: rgba(255, 107, 71, 0.05);
+    border-bottom-color: rgba(255, 107, 71, 0.1);
   }
   
-  // Effet de brillance subtil
-  &::after {
+  &.utils {
+    background: rgba(38, 208, 206, 0.05);
+    border-bottom-color: rgba(38, 208, 206, 0.1);
+  }
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  height: 60px;
+  
+  @media (max-width: $mobileWidth) {
+    padding: 0 1rem;
+    height: 55px;
+  }
+}
+
+// ===================
+// BRAND/LOGO
+// ===================
+.navbar-brand {
+  text-decoration: none;
+  transition: all $transitionFast;
+  
+  .brand-title {
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    position: relative;
+    margin: 0;
+    
+    @media (min-width: $mobileWidth) {
+      font-size: 20px;
+    }
+    
+    .what {
+      font-size: 22px;
+      color: #36395a;
+      font-weight: 600;
+      
+      @media (min-width: $mobileWidth) {
+        font-size: 28px;
+      }
+    }
+    
+    .tool {
+      font-size: 22px;
+      color: #ff7e5f;
+      font-weight: 600;
+      
+      @media (min-width: $mobileWidth) {
+        font-size: 28px;
+      }
+    }
+    
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff7e5f, #36395a);
+      transform: scaleX(.15);
+      transform-origin: left;
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+// ===================
+// NAVBAR RIGHT SIDE
+// ===================
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+// ===================
+// USER INFO
+// ===================
+.user-info {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  
+  @media (min-width: $mobileWidth) {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .user-greeting {
+    font-size: 12px;
+    color: #36395a;
+    
+    @media (min-width: $mobileWidth) {
+      font-size: 14px;
+    }
+  }
+  
+  .logout-button {
+    background: none;
+    color: #36395a;
+    border: none;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: underline;
+    
+    &:hover {
+      color: #ff7e5f;
+    }
+  }
+}
+
+// ===================
+// DESKTOP NAVIGATION
+// ===================
+.navbar-desktop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  @media (max-width: $mobileWidth) {
+    display: none;
+  }
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: transparent;
+  color: $navTextColor;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all $transitionSmooth;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-    transition: left 0.8s ease-in-out;
-    pointer-events: none;
+    transition: left $transitionMedium;
+    z-index: -1;
   }
   
-  &:hover::after {
-    left: 100%;
+  &:hover:not(.active) {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: $shadowLight;
   }
-}
-
-#navBar ul {
-  width: 35%;
-  min-width: 450px;
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: relative;
-  z-index: 1;
   
+  &.active {
+    color: $navTextColorActive;
+    transform: translateY(-2px);
+    box-shadow: $shadowMedium;
+    
+    .navbar.utils & {
+      background: $utilsGradient;
+      &::before {
+        background: $utilsGradientReverse;
+        left: 0;
+      }
+    }
+    
+    .navbar.webdev & {
+      background: $webdevGradient;
+      &::before {
+        background: $webdevGradientReverse;
+        left: 0;
+      }
+    }
+  }
   
-  li {
-    position: relative;
-    flex: 1;
+  .nav-icon {
+    font-size: 1.1rem;
     display: flex;
-    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-text {
+    white-space: nowrap;
+  }
+}
+
+// ===================
+// SUB-NAVIGATION
+// ===================
+.navbar-subnavs {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: $blurLight;
+  -webkit-backdrop-filter: $blurLight;
+  border-bottom: 1px solid $borderColor;
+  
+  .navbar.utils & {
+    background: rgba(38, 208, 206, 0.08);
+  }
+  
+  .navbar.webdev & {
+    background: rgba(255, 107, 71, 0.08);
+  }
+}
+
+.subnav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  min-height: 45px;
+  overflow-x: auto;
+  
+  &::-webkit-scrollbar {
+    height: 3px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+}
+
+.subnav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: $fontColorSecondary;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all $transitionFast;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  &:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  &.active {
+    color: $whiteBackground;
     
-    // Dropdown container
-    &.dropdown-container {
-      position: relative;
+    .navbar.utils & {
+      background: $utilsPrimary;
     }
     
-    a {
-      display: block;
-      padding: 12px 20px;
-      text-decoration: none;
-      color: rgba(54, 57, 90, 0.8);
-      font-weight: 500;
-      font-size: 14px;
-      border-radius: 16px;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      background: transparent;
-      border: 1px solid transparent;
-      white-space: nowrap;
-      position: relative;
-      z-index: 2;
-      
-      // Effet hover subtil
-      &:hover:not(.active) {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: rgba(54, 57, 90, 0.95);
-        transform: translateY(-1px);
-      }
-      
-      // État actif avec effet bulle
-      &.active {
-        background: rgba(255, 255, 255, 0.15);
-        color: rgba(54, 57, 90, 1);
-        font-weight: 600;
-        transform: translateY(-1px);
-        position: relative;
-        z-index: 2;
-        
-        // Bulle adaptative derrière le bouton actif
-        &::before {
-          content: '';
-          position: absolute;
-          top: -4px;
-          left: -8px;
-          right: -8px;
-          bottom: -4px;
-          border-radius: 20px;
-          backdrop-filter: blur(15px);
-          -webkit-backdrop-filter: blur(15px);
-          z-index: -1;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          pointer-events: none;
-        }
-      }
-      
-      // Couleurs spécifiques selon la section
-      // Accueil
-      &.active[href="/home"]::before {
-        background: linear-gradient(
-          135deg,
-          rgba(54, 57, 90, 0.15),
-          rgba(42, 45, 66, 0.2)
-        );
-        border: 2px solid rgba(54, 57, 90, 0.3);
-        box-shadow: 
-          0 8px 32px rgba(54, 57, 90, 0.1),
-          0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-          0 0 20px rgba(54, 57, 90, 0.15);
-      }
-      
-      // Web développement
-      &.active[href="/web_dev"]::before {
-        background: linear-gradient(
-          135deg,
-          rgba(54, 57, 90, 0.15),
-          rgba(255, 126, 95, 0.2)
-        );
-        border: 2px solid rgba(255, 126, 95, 0.3);
-        box-shadow: 
-          0 8px 32px rgba(255, 126, 95, 0.1),
-          0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-          0 0 20px rgba(255, 126, 95, 0.2);
-      }
-      
-      // Utilitaires
-      &.active[href="/utils"]::before {
-        background: linear-gradient(
-          135deg,
-          rgba(78, 205, 196, 0.15),
-          rgba(68, 160, 141, 0.2)
-        );
-        border: 2px solid rgba(78, 205, 196, 0.3);
-        box-shadow: 
-          0 8px 32px rgba(78, 205, 196, 0.1),
-          0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-          0 0 20px rgba(78, 205, 196, 0.2);
-      }
-      
-      // Micro-interaction
-      &:active {
-        transform: translateY(0px) scale(0.97);
-      }
+    .navbar.webdev & {
+      background: $webdevPrimary;
     }
   }
   
-  // Dropdown menu
-  .dropdown-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 180px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 16px;
-    padding: 8px;
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.1),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-    z-index: 10;
-    
-    // Effet de glassmorphisme pour le dropdown
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.03) 50%,
-        rgba(0, 0, 0, 0.01) 100%
-      );
-      border-radius: 16px;
-      pointer-events: none;
+  .subnav-icon {
+    font-size: 0.9rem;
+  }
+}
+
+// ===================
+// MOBILE TOGGLE
+// ===================
+.navbar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: $navTextColor;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all $transitionFast;
+  
+  @media (max-width: $mobileWidth) {
+    display: flex;
+  }
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// ===================
+// MOBILE MENU OVERLAY
+// ===================
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.mobile-menu {
+  width: 90%;
+  max-width: 400px;
+  background: $whiteBackground;
+  border-radius: 20px;
+  box-shadow: $shadowHeavy;
+  overflow: hidden;
+  animation: slideInDown 0.3s ease;
+  
+  &.utils {
+    border-top: 4px solid $utilsPrimary;
+  }
+  
+  &.webdev {
+    border-top: 4px solid $webdevPrimary;
+  }
+}
+
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: $greyBackground;
+  
+  .mobile-menu & {
+    &.utils {
+      background: rgba(38, 208, 206, 0.1);
     }
     
-    .dropdown-item {
-      display: block;
-      padding: 10px 16px;
-      text-decoration: none;
-      color: rgba(54, 57, 90, 0.85);
-      font-weight: 500;
-      font-size: 14px;
-      border-radius: 12px;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      margin-bottom: 4px;
-      position: relative;
-      z-index: 2;
-      
-      &:hover {
-        background: rgba(78, 205, 196, 0.1);
-        color: rgba(54, 57, 90, 1);
-        transform: translateX(2px);
-      }
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
+    &.webdev {
+      background: rgba(255, 107, 71, 0.1);
     }
   }
 }
 
-// Support responsive
-@media (max-width: 768px) {
-  #navBar ul {
-    width: 95%;
-    min-width: auto;
+.mobile-menu-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $fontColorPrimary;
+}
+
+.mobile-menu-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  color: $fontColorPrimary;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all $transitionFast;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+    transform: rotate(90deg);
+  }
+}
+
+.mobile-menu-content {
+  padding: 1rem;
+}
+
+// ===================
+// MOBILE USER INFO
+// ===================
+.mobile-user-info {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .mobile-user-greeting {
+    font-size: 0.9rem;
+    color: $fontColorPrimary;
+    font-weight: 500;
+  }
+  
+  .mobile-logout-button {
+    background: none;
+    color: #36395a;
+    border: none;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: underline;
     
-    li a {
-      padding: 10px 12px;
-      font-size: 13px;
-      
-      // Ajustement de la bulle pour mobile
-      &.active::before {
-        top: -3px;
-        left: -6px;
-        right: -6px;
-        bottom: -3px;
-        border-radius: 16px;
-      }
+    &:hover {
+      color: #ff7e5f;
     }
   }
 }
 
-@media (max-width: 480px) {
-  #navBar ul {
-    width: 98%;
+// ===================
+// MOBILE MENU ITEMS
+// ===================
+.mobile-section {
+  margin-bottom: 1rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  background: transparent;
+  color: $fontColorPrimary;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all $transitionFast;
+  text-align: left;
+  
+  &:hover:not(.active) {
+    background: $greyBackground;
+    transform: translateX(4px);
+  }
+  
+  &.active {
+    color: $whiteBackground;
     
-    li a {
-      padding: 8px 8px;
-      font-size: 12px;
-      
-      // Bulle plus petite sur très petits écrans
-      &.active::before {
-        top: -2px;
-        left: -4px;
-        right: -4px;
-        bottom: -2px;
-        border-radius: 14px;
-      }
+    .mobile-menu.utils & {
+      background: $utilsGradient;
     }
+    
+    .mobile-menu.webdev & {
+      background: $webdevGradient;
+    }
+  }
+  
+  .mobile-nav-icon {
+    font-size: 1.3rem;
+    min-width: 24px;
+  }
+  
+  .mobile-nav-text {
+    flex: 1;
+  }
+}
+
+.mobile-subapps {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid;
+  
+  .mobile-menu.utils & {
+    border-left-color: rgba(38, 208, 206, 0.3);
+  }
+  
+  .mobile-menu.webdev & {
+    border-left-color: rgba(255, 107, 71, 0.3);
+  }
+}
+
+.mobile-subapp-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: $fontColorSecondary;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all $transitionFast;
+  text-align: left;
+  margin-bottom: 0.25rem;
+  
+  &:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateX(2px);
+  }
+  
+  &.active {
+    color: $whiteBackground;
+    
+    .mobile-menu.utils & {
+      background: $utilsPrimary;
+    }
+    
+    .mobile-menu.webdev & {
+      background: $webdevPrimary;
+    }
+  }
+  
+  .mobile-subapp-icon {
+    font-size: 1rem;
+    min-width: 20px;
+  }
+}
+
+// ===================
+// ANIMATIONS
+// ===================
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===================
+// MAIN CONTENT ADJUSTMENTS FOR FLEXBOX LAYOUT
+// ===================
+// Main elements should flex to fill remaining space
+main,
+.homeContainer main,
+.utils-main,
+.courriers-main,
+#webDevelopment {
+  flex: 1;
+  min-height: calc(100dvh - 60px); // Account for navbar
+  padding-top: 60px; // Space for fixed navbar
+  
+  @media (max-width: $mobileWidth) {
+    min-height: calc(100dvh - 55px);
+    padding-top: 55px;
+  }
+}
+
+// Account for sub-navigation when present
+body.has-subnav {
+  main,
+  .homeContainer main,
+  .utils-main,
+  .courriers-main,
+  #webDevelopment {
+    min-height: calc(100dvh - 105px);
+    padding-top: 105px;
+    
+    @media (max-width: $mobileWidth) {
+      min-height: calc(100dvh - 100px);
+      padding-top: 100px;
+    }
+  }
+}
+
+// Special case for homeContainer to apply flexbox
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  
+  main {
+    flex: 1;
   }
 }
