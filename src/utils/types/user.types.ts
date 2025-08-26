@@ -27,7 +27,7 @@ export interface IAuthResponse {
     user?: IUser
 }
 
-export interface IApiResponse<T = any> {
+export interface IApiResponse<T = unknown> {
     success: boolean
     message: string
     data?: T
