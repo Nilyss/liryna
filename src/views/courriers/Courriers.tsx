@@ -77,7 +77,7 @@ function Courriers(): ReactElement {
 
   const handleActionClick = (actionId: string) => {
     if (actionId === 'new') {
-      navigate('/utils/courriers/nouveau');
+      navigate("/utils/mail/new");
     } else {
       setActiveAction(actionId);
     }

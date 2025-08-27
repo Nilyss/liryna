@@ -40,35 +40,35 @@ export default function NavBar(): ReactElement {
 
   const sections: Section[] = [
     {
-      id: 'home',
-      name: 'Accueil',
-      path: '/home',
+      id: "home",
+      name: "Accueil",
+      path: "/home",
       icon: <HiHome />,
-      color: 'utils'
+      color: "utils",
     },
     {
-      id: 'webdev',
-      name: 'Web Dev',
-      path: '/web_dev',
+      id: "webdev",
+      name: "Web Dev",
+      path: "/web_dev",
       icon: <MdDeveloperMode />,
-      color: 'webdev',
-      subApps: []
+      color: "webdev",
+      subApps: [],
     },
     {
-      id: 'utils',
-      name: 'Utilitaires',
-      path: '/utils',
+      id: "utils",
+      name: "Utilitaires",
+      path: "/utils",
       icon: <MdBuild />,
-      color: 'utils',
+      color: "utils",
       subApps: [
         {
-          id: 'courriers',
-          name: 'Courriers',
-          path: '/utils/courriers',
-          icon: <IoMail />
-        }
-      ]
-    }
+          id: "courriers",
+          name: "Courriers",
+          path: "/utils/mail",
+          icon: <IoMail />,
+        },
+      ],
+    },
   ];
 
   // Determine current section and sub-app

@@ -92,11 +92,11 @@ function NouveauCourrier(): ReactElement {
     console.log("Données du courrier:", formData);
     
     setIsSubmitting(false);
-    navigate("/utils/courriers");
+    navigate("/utils/mail");
   };
 
   const handleCancel = () => {
-    navigate("/utils/courriers");
+    navigate("/utils/mail");
   };
 
   return (

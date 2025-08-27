@@ -2,10 +2,10 @@
 @use "../../utils/styles/variables" as vars;
 
 // Page container with seamless background
-.auth-page-container {
+.authPageContainer {
   min-height: 100dvh;
   background: linear-gradient(135deg, #f8f9fb 0%, #e8ecf0 50%, #f0f3f7 100%);
-  
+
   // Make navbar background more transparent to blend seamlessly
   .navbar {
     background: rgba(248, 249, 251, 0.85);
@@ -16,19 +16,31 @@
 }
 
 main {
-  @include mixins.main;
   gap: 2em;
-  background: none; // Remove any background from main to let page container show through
+  min-height: 100dvh !important;
+  @include mixins.main;
+
+  .changeFormButtonWrapper {
+    width: 280px;
+    text-align: center;
+  }
+
+  .changeFormButtonWrapper button {
+    border: none;
+    background: none;
+    padding: unset;
+    color: #ff7e5f;
+  }
 }
 
-.changeFormButtonWrapper {
-  width: 280px;
-  text-align: center;
-}
+@media (max-width: vars.$tabletWidth) {
+  main {
+    padding: 1em;
+    padding-top: 6.1dvh;
+    min-height: 93.9dvh;
+  }
 
-.changeFormButtonWrapper button {
-  border: none;
-  background: none;
-  padding: unset;
-  color: #ff7e5f;
+  .auth-form {
+    padding: 1.5em;
+  }
 }

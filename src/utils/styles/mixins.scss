@@ -1,9 +1,9 @@
 @mixin main {
-  min-height: 90dvh;
+  margin-top: 60px; // header
+  min-height: calc(100dvh - 60px);
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  padding: .5rem;
   position: relative;
 }
