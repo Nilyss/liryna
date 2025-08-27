@@ -1,0 +1,85 @@
+@import "../../utils/styles/variables.scss";
+
+// ===================
+// SUB-NAVIGATION
+// ===================
+.subNav {
+  position: fixed;
+  top: 60px; /* Height of the header */
+  width: 100%;
+  z-index: 99; /* Slightly lower than header's z-index (100) */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: $blurLight;
+  -webkit-backdrop-filter: $blurLight;
+  border-bottom: 1px solid $borderColor;
+  
+  .header.utils & {
+    background: rgba(38, 208, 206, 0.08);
+  }
+  
+  .header.webdev & {
+    background: rgba(255, 107, 71, 0.08);
+  }
+}
+
+.subNavContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  min-height: 45px;
+  overflow-x: auto;
+  
+  &::-webkit-scrollbar {
+    height: 3px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+}
+
+.subNavItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: $fontColorSecondary;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all $transitionFast;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  &:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  &.active {
+    color: $whiteBackground;
+    
+    .header.utils & {
+      background: $utilsPrimary;
+    }
+    
+    .header.webdev & {
+      background: $webdevPrimary;
+    }
+  }
+  
+  .subNavIcon {
+    font-size: 0.9rem;
+  }
+}

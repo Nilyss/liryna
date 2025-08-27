@@ -6,14 +6,16 @@ import { ReactElement } from "react";
 
 // components
 import WithAuth from "../../utils/middleware/WithAuth.tsx";
-import NavBar from "../../components/navBar/NavBar.tsx";
+import Header from "../../components/header/Header.tsx";
+import SubNav from "../../components/subNav/SubNav.tsx";
 import Footer from "../../components/footer/Footer.tsx";
 
 function Utils(): ReactElement {
   return (
     <>
-      <NavBar />
-      <main className="utils-main">
+      <Header />
+      <SubNav />
+      <main className="utilsMain">
         <section className="utils-content">
           <h1 className="utils-title">Outils utilitaires</h1>
           <div className="utils-welcome">

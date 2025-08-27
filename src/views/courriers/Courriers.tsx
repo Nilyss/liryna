@@ -10,7 +10,8 @@ import { FiCalendar, FiFileText } from "react-icons/fi";
 
 // components
 import WithAuth from "../../utils/middleware/WithAuth.tsx";
-import NavBar from "../../components/navBar/NavBar.tsx";
+import Header from "../../components/header/Header.tsx";
+import SubNav from "../../components/subNav/SubNav.tsx";
 import Footer from "../../components/footer/Footer.tsx";
 
 function Courriers(): ReactElement {
@@ -85,7 +86,8 @@ function Courriers(): ReactElement {
 
   return (
     <>
-      <NavBar />
+      <Header />
+      <SubNav />
       <main className="courriers-main">
         <div className="courriers-container">
           <section className="courriers-header" data-aos="fade-down">
@@ -134,7 +136,7 @@ function Courriers(): ReactElement {
 
           {activeAction && (
             <section className="courriers-content" data-aos="fade-up" data-aos-delay="300">
-              <div className="content-card">
+              <div className="contentCard">
                 <h3>Section: {actions.find(a => a.id === activeAction)?.label}</h3>
                 <p>Le contenu de cette section sera développé selon vos besoins spécifiques.</p>
               </div>

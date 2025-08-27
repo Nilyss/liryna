@@ -41,7 +41,7 @@ function BodyClassManager(): ReactElement | null {
       
       // Add subnav class if we're in a sub-application
       if (location.pathname !== '/utils') {
-        document.body.classList.add('has-subnav');
+        document.body.classList.add('hasSubnav');
       }
     }
   }, [location.pathname]);

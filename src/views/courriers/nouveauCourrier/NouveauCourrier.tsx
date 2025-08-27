@@ -9,7 +9,8 @@ import { FiMail, FiUser, FiCalendar, FiFileText, FiTag } from "react-icons/fi";
 
 // components
 import WithAuth from "../../../utils/middleware/WithAuth.tsx";
-import NavBar from "../../../components/navBar/NavBar.tsx";
+import Header from "../../../components/header/Header.tsx";
+import SubNav from "../../../components/subNav/SubNav.tsx";
 import Footer from "../../../components/footer/Footer.tsx";
 
 interface CourrierFormData {
@@ -101,7 +102,8 @@ function NouveauCourrier(): ReactElement {
 
   return (
     <>
-      <NavBar />
+      <Header />
+      <SubNav />
       <main className="nouveau-courrier-main">
         <div className="nouveau-courrier-container">
           {/* Header */}
@@ -253,7 +255,7 @@ function NouveauCourrier(): ReactElement {
               </section>
 
               {/* Description */}
-              <section className="form-section full-width">
+              <section className="form-section fullWidth">
                 <h2 className="section-title">
                   <FiFileText />
                   Description
@@ -273,7 +275,7 @@ function NouveauCourrier(): ReactElement {
               </section>
 
               {/* Upload de fichier */}
-              <section className="form-section full-width">
+              <section className="form-section fullWidth">
                 <h2 className="section-title">
                   <MdUploadFile />
                   Document joint
@@ -343,7 +345,7 @@ function NouveauCourrier(): ReactElement {
               
               <button
                 type="submit"
-                className="btn-submit"
+                className="btnSubmit"
                 disabled={isSubmitting || !formData.direction}
               >
                 <MdSave />

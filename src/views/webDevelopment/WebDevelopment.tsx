@@ -6,13 +6,15 @@ import { ReactElement } from "react";
 
 // components
 import WithAuth from "../../utils/middleware/WithAuth.tsx";
-import NavBar from "../../components/navBar/NavBar.tsx";
+import Header from "../../components/header/Header.tsx";
+import SubNav from "../../components/subNav/SubNav.tsx";
 import Footer from "../../components/footer/Footer.tsx";
 
 function WebDevelopment(): ReactElement {
   return (
     <>
-      <NavBar />
+      <Header />
+      <SubNav />
       <main id={'webDevelopment'}>
       </main>
       <Footer />

@@ -1,9 +1,9 @@
 @import "../../utils/styles/variables.scss";
 
 // ===================
-// BASE NAVBAR STYLES
+// BASE HEADER STYLES
 // ===================
-.navbar {
+.header {
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
@@ -24,7 +24,7 @@
   }
 }
 
-.navbar-container {
+.headerContainer {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -41,12 +41,12 @@
 // ===================
 // BRAND LOGO
 // ===================
-.navbar-brand {
+.headerBrand {
   text-decoration: none;
   transition: all $transitionFast;
 }
 
-.brand-title {
+.brandTitle {
   font-size: 16px;
   font-weight: 400;
   text-transform: uppercase;
@@ -95,9 +95,9 @@
 }
 
 // ===================
-// NAVBAR LAYOUT
+// HEADER LAYOUT
 // ===================
-.navbar-right {
+.headerRight {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -106,7 +106,7 @@
 // ===================
 // USER INFORMATION
 // ===================
-.user-info {
+.userInfo {
   display: none;
   align-items: center;
   gap: 0.5rem;
@@ -117,7 +117,7 @@
   }
 }
 
-.user-greeting {
+.userGreeting {
   font-size: 12px;
   color: $fontColorPrimary;
   
@@ -126,7 +126,7 @@
   }
 }
 
-.logout-button {
+.logoutButton {
   background: none;
   color: $fontColorPrimary;
   border: none;
@@ -145,7 +145,7 @@
 // ===================
 // DESKTOP NAVIGATION
 // ===================
-.navbar-desktop {
+.headerDesktop {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -155,7 +155,7 @@
   }
 }
 
-.nav-item {
+.navItem {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -193,7 +193,7 @@
     transform: translateY(-2px);
     box-shadow: $shadowMedium;
     
-    .navbar.utils & {
+    .header.utils & {
       background: $utilsGradient;
       &::before {
         background: $utilsGradientReverse;
@@ -201,7 +201,7 @@
       }
     }
     
-    .navbar.webdev & {
+    .header.webdev & {
       background: $webdevGradient;
       &::before {
         background: $webdevGradientReverse;
@@ -210,101 +210,21 @@
     }
   }
   
-  .nav-icon {
+  .navIcon {
     font-size: 1.1rem;
     display: flex;
     align-items: center;
   }
   
-  .nav-text {
+  .navText {
     white-space: nowrap;
-  }
-}
-
-// ===================
-// SUB-NAVIGATION
-// ===================
-.navbar-subnavs {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: $blurLight;
-  -webkit-backdrop-filter: $blurLight;
-  border-bottom: 1px solid $borderColor;
-  
-  .navbar.utils & {
-    background: rgba(38, 208, 206, 0.08);
-  }
-  
-  .navbar.webdev & {
-    background: rgba(255, 107, 71, 0.08);
-  }
-}
-
-.subnav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0 1rem;
-  min-height: 45px;
-  overflow-x: auto;
-  
-  &::-webkit-scrollbar {
-    height: 3px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-  }
-}
-
-.subnav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  background: transparent;
-  color: $fontColorSecondary;
-  font-size: 0.85rem;
-  font-weight: 500;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all $transitionFast;
-  white-space: nowrap;
-  flex-shrink: 0;
-  
-  &:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
-  }
-  
-  &.active {
-    color: $whiteBackground;
-    
-    .navbar.utils & {
-      background: $utilsPrimary;
-    }
-    
-    .navbar.webdev & {
-      background: $webdevPrimary;
-    }
-  }
-  
-  .subnav-icon {
-    font-size: 0.9rem;
   }
 }
 
 // ===================
 // MOBILE TOGGLE
 // ===================
-.navbar-toggle {
+.headerToggle {
   display: none;
   align-items: center;
   justify-content: center;
@@ -334,7 +254,7 @@
 // ===================
 // MOBILE MENU OVERLAY
 // ===================
-.mobile-menu-overlay {
+.mobileMenuOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -348,7 +268,7 @@
   padding-top: 60px;
 }
 
-.mobile-menu {
+.mobileMenu {
   width: 90%;
   max-width: 400px;
   background: $whiteBackground;
@@ -366,14 +286,14 @@
   }
 }
 
-.mobile-menu-header {
+.mobileMenuHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
   background: $greyBackground;
   
-  .mobile-menu & {
+  .mobileMenu & {
     &.utils {
       background: rgba(38, 208, 206, 0.1);
     }
@@ -384,13 +304,13 @@
   }
 }
 
-.mobile-menu-title {
+.mobileMenuTitle {
   font-size: 1.1rem;
   font-weight: 600;
   color: $fontColorPrimary;
 }
 
-.mobile-menu-close {
+.mobileMenuClose {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -409,14 +329,14 @@
   }
 }
 
-.mobile-menu-content {
+.mobileMenuContent {
   padding: 1rem;
 }
 
 // ===================
 // MOBILE USER INFO
 // ===================
-.mobile-user-info {
+.mobileUserInfo {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 12px;
   padding: 1rem;
@@ -425,13 +345,13 @@
   align-items: center;
   justify-content: space-between;
   
-  .mobile-user-greeting {
+  .mobileUserGreeting {
     font-size: 0.9rem;
     color: $fontColorPrimary;
     font-weight: 500;
   }
   
-  .mobile-logout-button {
+  .mobileLogoutButton {
     background: none;
     color: #36395a;
     border: none;
@@ -450,7 +370,7 @@
 // ===================
 // MOBILE MENU ITEMS
 // ===================
-.mobile-section {
+.mobileSection {
   margin-bottom: 1rem;
   
   &:last-child {
@@ -458,7 +378,7 @@
   }
 }
 
-.mobile-nav-item {
+.mobileNavItem {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -482,76 +402,22 @@
   &.active {
     color: $whiteBackground;
     
-    .mobile-menu.utils & {
+    .mobileMenu.utils & {
       background: $utilsGradient;
     }
     
-    .mobile-menu.webdev & {
+    .mobileMenu.webdev & {
       background: $webdevGradient;
     }
   }
   
-  .mobile-nav-icon {
+  .mobileNavIcon {
     font-size: 1.3rem;
     min-width: 24px;
   }
   
-  .mobile-nav-text {
+  .mobileNavText {
     flex: 1;
-  }
-}
-
-.mobile-subapps {
-  margin-top: 0.5rem;
-  padding-left: 1rem;
-  border-left: 2px solid;
-  
-  .mobile-menu.utils & {
-    border-left-color: rgba(38, 208, 206, 0.3);
-  }
-  
-  .mobile-menu.webdev & {
-    border-left-color: rgba(255, 107, 71, 0.3);
-  }
-}
-
-.mobile-subapp-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: none;
-  background: transparent;
-  color: $fontColorSecondary;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all $transitionFast;
-  text-align: left;
-  margin-bottom: 0.25rem;
-  
-  &:hover:not(.active) {
-    background: rgba(0, 0, 0, 0.05);
-    transform: translateX(2px);
-  }
-  
-  &.active {
-    color: $whiteBackground;
-    
-    .mobile-menu.utils & {
-      background: $utilsPrimary;
-    }
-    
-    .mobile-menu.webdev & {
-      background: $webdevPrimary;
-    }
-  }
-  
-  .mobile-subapp-icon {
-    font-size: 1rem;
-    min-width: 20px;
   }
 }
 

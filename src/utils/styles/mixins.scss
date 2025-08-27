@@ -1,6 +1,6 @@
 @mixin main {
-  margin-top: 60px; // header
-  min-height: calc(100dvh - 60px);
+  margin-top: 105px; // header + subnav
+  min-height: calc(100dvh - 105px);
   display: flex;
   flex-flow: column;
   align-items: center;
