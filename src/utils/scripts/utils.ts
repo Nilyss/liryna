@@ -5,7 +5,7 @@ export const isOnProduction = (): boolean => {
 
 export const getApiBaseUrl = (): string => {
   if (isOnProduction()) {
-    // Production avec HTTPS via nginx reverse proxy
+    // Production avec HTTPS et certificat Let's Encrypt valide
     return "https://ndecrolympe.duckdns.org/api";
   } else {
     // En développement local, utiliser IP locale
