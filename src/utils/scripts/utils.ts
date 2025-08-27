@@ -5,8 +5,8 @@ export const isOnProduction = (): boolean => {
 
 export const getApiBaseUrl = (): string => {
   if (isOnProduction()) {
-    // En production (Vercel), utiliser DuckDNS
-    return "http://ndecrolympe.duckdns.org:8800/api";
+    // Production avec HTTPS via nginx reverse proxy
+    return "https://ndecrolympe.duckdns.org/api";
   } else {
     // En développement local, utiliser IP locale
     return "http://192.168.1.56:8800/api";
