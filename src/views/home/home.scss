@@ -20,12 +20,16 @@ main .mainWrapper {
 
   section {
     width: 100%;
-    height: 100dvh;
+    height: calc(100dvh - 60px); // Account for navbar height
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     scroll-snap-align: start;
+    
+    @media (max-width: vars.$mobileWidth) {
+      height: calc(100dvh - 55px); // Account for mobile navbar height
+    }
 
     &:hover {
       h2 {
@@ -90,11 +94,11 @@ main .mainWrapper {
   // Desktop layout
   @media (min-width: vars.$tabletWidth) {
     flex-direction: row;
-    height: 100vh;
+    height: calc(100vh - 60px); // Account for navbar
     
     section {
       width: 50%;
-      height: 100vh;
+      height: calc(100vh - 60px); // Account for navbar height
     }
     
     // Reorder for desktop: Web Dev first (left), Utils second (right)

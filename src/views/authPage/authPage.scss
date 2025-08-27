@@ -1,9 +1,24 @@
 @use "../../utils/styles/mixins" as mixins;
 @use "../../utils/styles/variables" as vars;
 
+// Page container with seamless background
+.auth-page-container {
+  min-height: 100dvh;
+  background: linear-gradient(135deg, #f8f9fb 0%, #e8ecf0 50%, #f0f3f7 100%);
+  
+  // Make navbar background more transparent to blend seamlessly
+  .navbar {
+    background: rgba(248, 249, 251, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
 main {
   @include mixins.main;
   gap: 2em;
+  background: none; // Remove any background from main to let page container show through
 }
 
 .changeFormButtonWrapper {
