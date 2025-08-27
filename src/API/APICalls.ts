@@ -2,13 +2,11 @@
 import axios, { AxiosResponse } from "axios";
 
 // utils
-import { isOnProduction } from "../utils/scripts/utils.ts";
+import { getApiBaseUrl } from "../utils/scripts/utils.ts";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.timeout = 10000;
-axios.defaults.baseURL = isOnProduction()
-  ? "http://192.168.1.56:8800/api"
-  : "http://192.168.1.56:8800/api";
+axios.defaults.baseURL = getApiBaseUrl();
 axios.defaults.withCredentials = false;
 
 // Interceptor pour ajouter le token JWT automatiquement
