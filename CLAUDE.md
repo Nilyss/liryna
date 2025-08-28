@@ -50,6 +50,13 @@ components/
 - Responsive: Utiliser `$mobileWidth`, `$tabletWidth`, `$desktopWidth`, etc.
 - Animations: Utiliser `$transitionFast`, `$transitionMedium`, etc.
 
+## Architecture API et État
+- **Pattern API**: Modèle → Service → Contexte → Provider → Composant
+- **Types TypeScript**: Interfaces strictes, aucun `any` autorisé
+- **Gestion d'erreur**: Try/catch dans services, propagation vers composants
+- **État global**: Contextes React pour User et Courrier
+- **API Calls**: Axios avec interceptors JWT automatiques
+
 ## Exemples de code conforme
 
 ### SCSS Mobile First avec dimensions en em et dvh
