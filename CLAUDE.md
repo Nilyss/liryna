@@ -53,11 +53,70 @@ components/
 ## Architecture API et État
 - **Pattern API**: Modèle → Service → Contexte → Provider → Composant
 - **Types TypeScript**: Interfaces strictes, aucun `any` autorisé
-- **Gestion d'erreur**: Try/catch dans services, propagation vers composants
+- **Gestion d'erreur**: Try/catch dans services, propagation vers composants avec type guards
 - **État global**: Contextes React pour User et Courrier
 - **API Calls**: Axios avec interceptors JWT automatiques
+- **FormData**: Utiliser `postFormDataRequest` pour uploads de fichiers (évite les problèmes d'interceptors)
+- **Validation**: Extraire la logique de validation dans des utilitaires séparés
+- **Error Handling**: Centraliser la gestion d'erreurs dans des utilitaires réutilisables
+
+## Workflow Courrier Upload
+- **Champ fichier**: `courrier` (pas `file`)
+- **Champs requis**: `direction`, `customFileName` (nom sans extension)
+- **Champs optionnels**: `emitter`, `recipient`, `department`, `kind`, `priority`, `receptionDate`, `courrierDate`, `description`
+- **API Method**: `postFormDataRequest` pour éviter les problèmes d'interceptors Axios avec FormData
+- **Validation**: Utiliser `validateCourrierForm` avant soumission
+- **Error Handling**: Utiliser `handleCourrierUploadError` pour messages d'erreur utilisateur
 
 ## Exemples de code conforme
+
+### Upload de fichier avec FormData
+```typescript
+// Service API
+export const postFormDataRequest = async <R>(
+  url: string,
+  formData: FormData,
+): Promise<AxiosResponse<R>> => {
+  try {
+    const token = localStorage.getItem('authToken');
+    const config: Record<string, unknown> = {
+      headers: {}
+    };
+    if (token) {
+      (config.headers as Record<string, string>).Authorization = `Bearer ${token}`;
+    }
+    return await axios.post<R>(url, formData, config);
+  } catch (error) {
+    console.error("Erreur in postFormDataRequest:", error);
+    throw error;
+  }
+};
+```
+
+### Gestion d'erreur avec type guards
+```typescript
+// utils/errorHandling.ts
+export const handleCourrierUploadError = (error: unknown): string => {
+  if (axios.isAxiosError(error)) {
+    if (error.response?.data?.message) {
+      return error.response.data.message;
+    }
+    return `Erreur HTTP: ${error.response?.status || 'inconnue'}`;
+  }
+  
+  if (error instanceof Error) {
+    return error.message;
+  }
+  
+  return 'Erreur inconnue lors de l\'upload';
+};
+
+// Dans le composant
+} catch (error: unknown) {
+  const errorMessage = handleCourrierUploadError(error);
+  alert(errorMessage);
+}
+```
 
 ### SCSS Mobile First avec dimensions en em et dvh
 ```scss
