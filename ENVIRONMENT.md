@@ -1,8 +1,8 @@
-# Configuration des Environnements - WhatATool
+# Configuration des Environnements - Liryna
 
 ## Vue d'ensemble
 
-L'application WhatATool utilise un système de basculement automatique entre les environnements de développement et production basé sur la détection du hostname et du port.
+L'application Liryna utilise un système de basculement automatique entre les environnements de développement et production basé sur la détection du hostname et du port.
 
 ## Détection Automatique
 
@@ -83,7 +83,7 @@ npm start
 En production (Vercel), l'application détecte automatiquement l'environnement et utilise l'API de production.
 
 ### URLs de Production
-- **Frontend**: `https://whatatool.vercel.app`
+- **Frontend**: `https://liryna.vercel.app`
 - **Backend**: `https://ndecrolympe.duckdns.org/api`
 
 ## Dépannage

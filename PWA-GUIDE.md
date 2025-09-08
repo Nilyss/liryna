@@ -1,8 +1,8 @@
-# Guide PWA - What a tool
+# Guide PWA - Liryna
 
 ## 🚀 Fonctionnalités PWA Implémentées
 
-Votre application **What a tool** est maintenant une Progressive Web App (PWA) complète avec :
+Votre application **Liryna** est maintenant une Progressive Web App (PWA) complète avec :
 
 ### ✅ Fonctionnalités principales
 - **Installation native** : L'app peut être installée sur smartphone et desktop comme une app native
