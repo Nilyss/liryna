@@ -27,6 +27,36 @@
   - Header + SubNav (si existe) + Main = 100dvh minimum
   - Footer poussé en bas, visible seulement au scroll
 
+### 🆕 **Nouvelles Directives SCSS (Mixed Declarations)**
+- **Encapsulation obligatoire** : Toutes les déclarations CSS qui suivent des règles imbriquées doivent être encapsulées dans `& {}`
+- **Ordre recommandé** : Règles par défaut dans `& {}` en premier, puis media queries et pseudo-sélecteurs
+- **Pattern obligatoire** :
+```scss
+.selector {
+  // 1. Règles par défaut encapsulées
+  & {
+    property: value;
+    display: none;
+  }
+
+  // 2. Media queries après
+  @media (min-width: $breakpoint) {
+    property: new-value;
+    display: flex;
+  }
+
+  // 3. Pseudo-sélecteurs après
+  &:hover {
+    property: hover-value;
+  }
+
+  // 4. Sélecteurs enfants en dernier
+  .child-selector {
+    property: value;
+  }
+}
+```
+
 ## Approche Mobile First
 - **Développement principal**: Smartphone (375px base)
 - **Responsive**: Tablette (`@media (min-width: $tabletWidth)`) et Desktop (`@media (min-width: $desktopWidth)`)
@@ -245,16 +275,12 @@ export const validateCourrierForm = (data: CourrierFormData): string | null => {
 #component {
   @include mixins.fullViewport; // Header + SubNav + Main = 100dvh
   
-  // Styles mobile d'abord
-  display: flex;
-  flex-direction: column;
-  gap: 1em; // Em au lieu de rem/px
-  padding: 1em 0.5em; // Em pour les dimensions
-  
-  .container {
+  // Règles par défaut encapsulées (mobile first)
+  & {
     display: flex;
-    gap: 0.5em; // Au lieu de margins
-    min-height: 10em; // Em au lieu de px
+    flex-direction: column;
+    gap: 1em; // Em au lieu de rem/px
+    padding: 1em 0.5em; // Em pour les dimensions
   }
 
   // Responsive tablette
@@ -268,6 +294,53 @@ export const validateCourrierForm = (data: CourrierFormData): string | null => {
   @media (min-width: vars.$desktopWidth) {
     gap: 3em;
   }
+  
+  .container {
+    & {
+      display: flex;
+      gap: 0.5em; // Au lieu de margins
+      min-height: 10em; // Em au lieu de px
+    }
+  }
+}
+```
+
+### 🆕 **Exemple SCSS avec Nouvelles Directives**
+```scss
+// ✅ CORRECT - Respect des nouvelles directives SCSS
+.userInfo {
+  // 1. Règles par défaut dans & {} en premier
+  & {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  // 2. Media queries après
+  @media (min-width: vars.$mobileWidth) {
+    display: flex;
+    gap: 1rem;
+  }
+
+  // 3. Sélecteurs enfants en dernier
+  .pwa-install-btn.compact.desktop {
+    font-size: 0.8em;
+    padding: 0.4em 0.6em;
+    border-radius: 6px;
+  }
+}
+
+// ❌ INCORRECT - Génère des warnings
+.userInfo {
+  @media (min-width: vars.$mobileWidth) {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  // ⚠️ Ces déclarations après media query génèrent des warnings
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
 }
 ```
 
